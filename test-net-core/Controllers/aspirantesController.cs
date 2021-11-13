@@ -48,7 +48,10 @@ namespace test_net_core.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Putaspirantes(int id, aspirantes aspirantes)
         {
-           
+            if (id != aspirantes.id)
+            {
+                return BadRequest();
+            }
 
             _context.Entry(aspirantes).State = EntityState.Modified;
 
@@ -60,7 +63,7 @@ namespace test_net_core.Controllers
             {
                 if (!aspirantesExists(id))
                 {
-                    return BadRequest("No se puede editar el aspiante porque no existe");
+                    return NotFound();
                 }
                 else
                 {
